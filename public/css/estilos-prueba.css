@@ -1,0 +1,46 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+ul {
+    display: flex;
+    list-style-type: none;
+    gap: 5px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.botonesTablaLibros {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.botonesTablaLibros:hover{
+    background-color: green;
+}
+
+.eliminar:hover{
+    background-color: red;
+}
+
+
+form input {
+    display: flex;
+    flex-direction: column;
+}
