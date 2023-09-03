@@ -18,7 +18,7 @@
             <button type="submit">BUSCAR</button>
             <a class="botonesTablaLibros" href="/libros">Borra busqueda</a>
         </form>
-        @if (empty($libros))
+        @if (!empty($libros))
         
            <tr>
             <th>TITULO LIBRO</th>
@@ -39,7 +39,7 @@
         @endforeach
         @else
         <h2 style="color: red">NO SE ENCONTRO NINGUN LIBRO</h2>
-           {{ $libros }}
+           {{-- {{ $libros }} --}}
         @endif
     </table>
 @endsection
