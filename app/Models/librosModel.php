@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\prestamosModel;
 
 class librosModel extends Model
 {
@@ -13,7 +14,18 @@ class librosModel extends Model
      * CON LA VARIABLE $table identificamos el nombre de la tabla a la que hace referencia en la BD.
      */
     protected $table = 'libros';
+    protected $primaryKey = 'id';
     use HasFactory;
+
+/**
+ * establecemos las relaciones con las otras tablas si hay
+ */
+
+    public function prestamos()
+    {
+        return $this->hasMany(prestamosModel::class,'libros_id');
+    }
+
     /**
      * METODO, PERMITE CREAR UN NUEVO LIBRO EN LA BD
      */

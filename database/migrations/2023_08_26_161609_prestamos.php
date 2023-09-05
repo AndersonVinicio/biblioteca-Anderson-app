@@ -14,10 +14,11 @@ return new class extends Migration
         Schema::create('prestamos',function(Blueprint $table){
             $table->id();
             $table->timestamps();
-            $table->integer('user_id');
-            $table->integer('libro_id');
+            $table->unsignedBigInteger('libro_id');
             $table->date('fecha_prestamo');
             $table->date('fecha_devolucion');
+
+            $table->foreign('libro_id')->references('id')->on('libros');
         });
     }
 

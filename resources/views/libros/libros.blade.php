@@ -39,7 +39,7 @@
         @endforeach
         @else
         <h2 style="color: red">NO SE ENCONTRO NINGUN LIBRO</h2>
-           {{-- {{ $libros }} --}}
+           
         @endif
     </table>
 @endsection
