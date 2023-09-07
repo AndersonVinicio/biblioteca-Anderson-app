@@ -4,44 +4,48 @@
     {{-- @livewire('tabla-libros') --}}
     <nav>
         <ul>
-            <li><a href="/formulario-add-book">AÑADIR LIBRO</a></li>
+            <li><a href="/formulario-add-prestamo">REALIZAR PRESTAMO</a></li>
         </ul>
     </nav>
 
 
 
     <table>
-        <form action={{ route('searchBook') }} method="post">
+        {{-- <form action={{ route('searchBook') }} method="post">
             @csrf
             <label for="inputBuscarLibro">Buscar:</label>
             <input type="text" name="inputBuscarLibro" id="inputBuscarLibro" placeholder="itroduce tiulo o isbn">
             <button type="submit">BUSCAR</button>
             <a class="botonesTablaLibros" href="/libros">Borra busqueda</a>
-        </form>
-        @if (!empty($libros))
+        </form> --}}
+        {{-- @if (!empty($libros)) --}}
         
            <tr>
             <th>TITULO LIBRO</th>
             <th>ISBN</th>
+            <th>Fecha inicio prestamo</th>
+            <th>Fecha final prestamo</th>
+            <th>Prestamo Finalizado</th>
         </tr>
-        @foreach ($libros as $libro)
+        {{-- @foreach ($libros as $libro) --}}
             <tr>
-                <td>{{ $libro->titulo }}</td>
-                <td>{{ $libro->isbn }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td>
                     <a class="botonesTablaLibros eliminar"
-                        href="http://127.0.0.1:8000/delete-libro/{{ $libro->id }}">ELIMINAR</a>
-                    <a class="botonesTablaLibros" href="http://127.0.0.1:8000/edit-libro/{{ $libro->id }}">EDITAR</a>
-                    <a class="botonesTablaLibros" href="http://127.0.0.1:8000/detalles-libro/{{ $libro->id }}">MAS
+                        href="#">ELIMINAR</a>
+                    <a class="botonesTablaLibros" href="#">EDITAR</a>
+                    <a class="botonesTablaLibros" href="#">MAS
                         DETALLES</a>
-                    <a class="botonesTablaLibros" href="#">Prestar</a>
                 </td>
             </tr>
-        @endforeach
+        {{-- @endforeach
         @else
         <h2 style="color: red">NO SE ENCONTRO NINGUN LIBRO</h2>
            
-        @endif
+        @endif --}}
     </table>
 @endsection
-

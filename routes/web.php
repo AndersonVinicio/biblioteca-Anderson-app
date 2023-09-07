@@ -3,6 +3,7 @@
 use App\Livewire\TablaLibros;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\librosController;
+use App\Http\Controllers\prestamosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,9 @@ use App\Http\Controllers\librosController;
 Route::get('/', function () {
     return view('app');
 });
+
+//libros
+
 //RUTAS PARA MOSTRAR VISTAS
 Route::get('/libros',[librosController::class, 'displayBooks'])->name('displayLibros');
 Route::get('/formulario-add-book',[librosController::class, 'AddBook']);
@@ -32,3 +36,8 @@ Route::get('/delete-libro/{id}', [librosController::class, 'deleteBook']);
 Route::post('/update-libro', [librosController::class, 'updateLibro'])->name('updateLibro');
 
 Route::post('/buscar-libro', [librosController::class, 'searchBook'])->name('searchBook');
+
+//PRESTAMOS
+
+Route::get('/prestamos',[prestamosController::class, 'displayPrestamos']);
+Route::get('/formulario-add-prestamo',[prestamosController::class, 'addPrestamo']);
