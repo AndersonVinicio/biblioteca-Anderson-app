@@ -35,7 +35,7 @@
             <a class="botonesTablaLibros" href="http://127.0.0.1:8000/detalles-libro/{{ $libro->id }}">MAS
                 DETALLES</a>
             @if ($libro->disponible === 1)
-                <a class="botonesTablaLibros" href="/formulario-add-prestamo">Prestar</a>
+                <a class="botonesTablaLibros" href="/formulario-add-prestamo/{{ $libro->id }}">Prestar</a>
             @else
             <a class="disabled-link" href="#">No disponible</a>
             @endif

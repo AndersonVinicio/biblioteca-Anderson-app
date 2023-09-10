@@ -79,4 +79,11 @@ class librosController extends Controller
         return view('libros.libros',compact('libros'));
         
     }
+
+    // ACTUALIZACION DE ESTADO DISPONIBLE EN BD
+
+    public function updtateEstadoDisponibilidad($id)
+    {
+        librosController::updtateEstadoDisponibilidad($id);
+    }
 }

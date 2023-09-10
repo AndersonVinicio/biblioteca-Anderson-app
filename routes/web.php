@@ -39,5 +39,8 @@ Route::post('/buscar-libro', [librosController::class, 'searchBook'])->name('sea
 
 //PRESTAMOS
 
-Route::get('/prestamos',[prestamosController::class, 'displayPrestamos']);
-Route::get('/formulario-add-prestamo',[prestamosController::class, 'addPrestamo']);
+Route::get('/prestamos',[prestamosController::class, 'displayPrestamos'])->name('displayPrestamos');
+
+//MOSTRAMOS LA VISTA DE FORMULARIO PARA REALIZAR UN PRESTAMO
+Route::get('/formulario-add-prestamo/{id}',[prestamosController::class, 'displayFormPrestamo']);
+Route::post('/realizar-prestamo', [prestamosController::class, 'realizarPrestamo'])->name('realizarPrestamo');

@@ -1,24 +1,11 @@
 @extends('app')
 @section('title', 'LIBROS')
 @section('content')
-    {{-- @livewire('tabla-libros') --}}
-    <nav>
-        <ul>
-            <li><a href="/formulario-add-prestamo">REALIZAR PRESTAMO</a></li>
-        </ul>
-    </nav>
 
 
+    <h1>PRESTAMOS</h1>
 
     <table>
-        {{-- <form action={{ route('searchBook') }} method="post">
-            @csrf
-            <label for="inputBuscarLibro">Buscar:</label>
-            <input type="text" name="inputBuscarLibro" id="inputBuscarLibro" placeholder="itroduce tiulo o isbn">
-            <button type="submit">BUSCAR</button>
-            <a class="botonesTablaLibros" href="/libros">Borra busqueda</a>
-        </form> --}}
-        {{-- @if (!empty($libros)) --}}
         
            <tr>
             <th>TITULO LIBRO</th>
@@ -27,13 +14,19 @@
             <th>Fecha final prestamo</th>
             <th>Prestamo Finalizado</th>
         </tr>
-        {{-- @foreach ($libros as $libro) --}}
+        @foreach ($librosPrestados as $lisbroPrestado)
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{ $lisbroPrestado['titulo'] }}</td>
+                <td>{{ $lisbroPrestado['isbn']}}</td>
+                
+                <td>{{ $lisbroPrestado['datosPrestamo']->fecha_prestamo}}</td>
+                <td>{{ $lisbroPrestado['datosPrestamo']->fecha_devolucion }}</td>
+                @if ($lisbroPrestado['datosPrestamo']->finalizado === 0)
+                    <td>LIBRO PRESTADO</td>
+                @else
+                    <td>PRESTAMO FINALIZADO</td>
+                @endif
+                
                 <td>
                     <a class="botonesTablaLibros eliminar"
                         href="#">ELIMINAR</a>
@@ -42,10 +35,7 @@
                         DETALLES</a>
                 </td>
             </tr>
-        {{-- @endforeach
-        @else
-        <h2 style="color: red">NO SE ENCONTRO NINGUN LIBRO</h2>
-           
-        @endif --}}
+        @endforeach
+       
     </table>
 @endsection

@@ -2,23 +2,28 @@
 @section('title', 'AÑADIR LIBRO')
 @section('content')
 <h1>AÑADIR LIBRO</h1>
-    <form action="#" method="post">
+    <form action="{{ route('realizarPrestamo') }}" method="post">
         @csrf
+        {{-- DATOS DEL LIBRO A PRESTAR --}}
         <label for="inputIsbnBook">Libro Isbn:</label>
-        <input type="text" name="inputIsbnBook" id="inputIsbnBook">
+        <input type="text" name="inputIsbnBook" id="inputIsbnBook" value="{{ $libro->isbn }}">
         <label for="inputTituloBook">Titulo del libro:</label>
-        <input type="text" name="inputTituloBook" id="inputTituloBook">
+        <input type="text" name="inputTituloBook" id="inputTituloBook" value="{{ $libro->titulo }}">
         <label for="inputAutorBook">Autor del Libro:</label>
-        <input type="text" name="inputAutorBook" id="inputAutorBook">
-        <label for="inputPublicacionBook">Fecha Publicación libro:</label>
-        <input type="date" name="inputPublicacionBook" id="inputPublicacionBook">
-        <label for="inputGeneroBook">Genero del libro</label>
-        <input type="text" name="inputGeneroBook" id="inputGeneroBook">
-        <label for="selectDisponibilidadBook">Disponible</label>
-        <select name="selectDisponibilidadBook" id="selectDisponibilidadBook">
-            <option value="true">SI</option>
-            <option value="false">NO</option>
-        </select>
-        <input type="submit" value="AGREGAR LIBRO">
+        <input type="text" name="inputAutorBook" id="inputAutorBook" value="{{ $libro->autor }}">
+        {{-- DATOS DEL PRESTAMO --}}
+        <label for="inputDateFechaPrestamo">Fecha del prestamo</label>
+        <input type="date" name="inputDateFechaPrestamo" id="inputDateFechaPrestamo">
+
+        <label for="inpuDateFechaDevolucion">Fecha devolución</label>
+        <input type="date" name="inpuDateFechaDevolucion" id="inpuDateFechaDevolucion">
+
+        @if ($libro->disponible === 1)
+        <input type="submit" value="REALIZAR PRESTAMO">
+        @else
+        <p>No se puede realizar ningun prestamo por que no esta disponible este libro</p>
+        @endif
+        
+        
     </form>
 @endsection

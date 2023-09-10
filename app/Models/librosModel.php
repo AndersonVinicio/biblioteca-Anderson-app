@@ -88,6 +88,13 @@ class librosModel extends Model
 
     }
 
+    public static function updateEstadoDisponibilidad($id)
+    {
+        $book = librosModel::find($id);
+        $book->disponible = false;
+        $book->save();
+    }
+
     public static function searchIsbnOrTitle(Request $request)
     {
         $book = librosModel::where('titulo','like','%'.$request->input('inputBuscarLibro').'%')
