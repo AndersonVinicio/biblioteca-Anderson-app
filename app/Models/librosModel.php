@@ -29,7 +29,7 @@ class librosModel extends Model
     /**
      * METODO, PERMITE CREAR UN NUEVO LIBRO EN LA BD
      */
-    public static function newBook(Request $request)
+    public function newBook(Request $request)
     {
         $book = new librosModel();
         $book->isbn = $request->input('inputIsbnBook');
@@ -48,7 +48,7 @@ class librosModel extends Model
     }
 
     //Me devuelve todos los libros que hay en la BD
-    public static function displayAllBooks()
+    public function displayAllBooks()
     {
         return librosModel::all();
     }
@@ -56,7 +56,7 @@ class librosModel extends Model
     /**
      * METODO QUE PERMITE ELIMINAR UN LIBRO
      */
-    public static function deleteBook($id)
+    public function deleteBook($id)
     {
         $book = librosModel::find($id);
         $book->delete();
@@ -65,11 +65,11 @@ class librosModel extends Model
     /**
      * METODO QUE PERMITE ACTUALIZAR LOS DATOS DEL LIBRO EN LA BD
      */
-    public static function obtenerDatosLibro($id){
+    public function obtenerDatosLibro($id){
         $book = librosModel::find($id);
         return $book;
     }
-    public static function updateLibro(Request $request, $id)
+    public function updateLibro(Request $request, $id)
     {
         $book = librosModel::find($id);
         $book->isbn = $request->input('inputIsbnBook');
@@ -88,14 +88,20 @@ class librosModel extends Model
 
     }
 
-    public static function updateEstadoDisponibilidad($id)
+    public function updateEstadoDisponibilidadfalse($id)
     {
         $book = librosModel::find($id);
         $book->disponible = false;
         $book->save();
     }
+    public function updateEstadoDisponibilidadtrue($id)
+    {
+        $book = librosModel::find($id);
+        $book->disponible = true;
+        $book->save();
+    }
 
-    public static function searchIsbnOrTitle(Request $request)
+    public function searchIsbnOrTitle(Request $request)
     {
         $book = librosModel::where('titulo','like','%'.$request->input('inputBuscarLibro').'%')
                 ->orWhere('isbn','=',$request->input('inputBuscarLibro'))

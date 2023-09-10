@@ -10,11 +10,18 @@ use Illuminate\Support\Facades\Session;
 class librosController extends Controller
 {
 
+    protected $librosModel;
+
+    public function __construct(librosModel $librosModel)
+    {
+        $this->librosModel = $librosModel;
+    }
+
     //METODOS PARA MOSTRAR LAS VISTAS
 
     public function displayBooks()
     {
-        $libros = librosModel::displayAllBooks();
+        $libros = $this->librosModel->displayAllBooks();
         return view('libros.libros',compact('libros'));
     }
 
@@ -24,14 +31,14 @@ class librosController extends Controller
     }
 
     public function viewEditLibro($id){
-        $libro = librosModel::obtenerDatosLibro($id);
+        $libro = $this->librosModel->obtenerDatosLibro($id);
         //GUARDAMOS EL ID EN SESSION PARA UN SOLO USO
         Session::flash('id', $id);
         return view('libros.libros-edit', compact('libro'));
     }
 
     public function viewDetallesLibro($id){
-        $libro = librosModel::obtenerDatosLibro($id);
+        $libro = $this->librosModel->obtenerDatosLibro($id);
         return view('libros.libro-mas-detalles',compact('libro'));
     }
     /**
@@ -39,13 +46,7 @@ class librosController extends Controller
      */
     public function addLibro(Request $request)
     {
-        // $book_id = 1;
-        // $titulo = 'Harry Potter';
-        // $autor = 'autor prueba';
-        // $año_publicacion = Carbon::parse('2023-08-07');
-        // $genero = 'animacion';
-        // $disponible = true;
-        librosModel::newBook($request);
+        $this->librosModel->newBook($request);
         return redirect()->route('displayLibros');
     }
 
@@ -54,7 +55,7 @@ class librosController extends Controller
      */
     public function deleteBook($id)
     {
-        librosModel::deleteBook($id);
+        $this->librosModel->deleteBook($id);
         return redirect()->route('displayLibros');
     }
 
@@ -65,7 +66,7 @@ class librosController extends Controller
     {
         //OBTENEMOS EL ID DE LA SSESION
         $id = Session::get('id');
-        librosModel::updateLibro($request, $id);
+        $this->librosModel->updateLibro($request, $id);
         return redirect()->route('displayLibros');
     }
 
@@ -75,15 +76,15 @@ class librosController extends Controller
 
     public function searchBook(Request $request)
     {
-        $libros = librosModel::searchIsbnOrTitle($request);
+        $libros = $this->librosModel->searchIsbnOrTitle($request);
         return view('libros.libros',compact('libros'));
         
     }
 
     // ACTUALIZACION DE ESTADO DISPONIBLE EN BD
 
-    public function updtateEstadoDisponibilidad($id)
-    {
-        librosController::updtateEstadoDisponibilidad($id);
-    }
+    // public function updtateEstadoDisponibilidad($id)
+    // {
+    //     librosController::updtateEstadoDisponibilidad($id);
+    // }
 }

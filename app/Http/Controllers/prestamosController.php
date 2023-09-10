@@ -10,9 +10,22 @@ use Illuminate\Support\Facades\Session;
 class prestamosController extends Controller
 {
     //
+
+
+    protected $prestamosModel;
+    protected $librosModel;
+
+    public function __construct(pretamosModel $prestamosModel, librosModel $librosModel=null)
+    {
+        $this->prestamosModel = $prestamosModel;
+        $this->librosModel = $librosModel;
+    }
+
+    
+
     public function displayPrestamos()
     {
-        $prestamos = pretamosModel::allPrestamos();
+        $prestamos = $this->prestamosModel->allPrestamos();
         $librosPrestados = [];
         foreach ($prestamos as $prestamo) {
             $libroRelacionado = $prestamo->libro; 
@@ -31,7 +44,7 @@ class prestamosController extends Controller
 
     public function displayFormPrestamo($id)
     {
-        $libro = librosModel::obtenerDatosLibro($id);
+        $libro = $this->librosModel->obtenerDatosLibro($id);
         Session::flash('id', $id);
         return view('prestamos.prestamos-form-add', compact('libro'));
     }
@@ -39,8 +52,18 @@ class prestamosController extends Controller
     public function realizarPrestamo(Request $request)
     {
         $id = Session::get('id');
-        librosModel::updateEstadoDisponibilidad($id);
-        pretamosModel::addPrestamo($request, $id);
+        $this->librosModel->updateEstadoDisponibilidadfalse($id);
+        $this->prestamosModel->addPrestamo($request, $id);
+        return redirect()->route('displayPrestamos');
+    }
+
+    public function finalizarPrestamo($id)
+    {
+        $prestamo = pretamosModel::find($id);
+        $libroRelacionado = $prestamo->libro;
+        $id_libro=$libroRelacionado->id;
+        $this->librosModel->updateEstadoDisponibilidadtrue($id_libro);
+        $this->prestamosModel->updateEstadoPrestamo($id);
         return redirect()->route('displayPrestamos');
     }
 }

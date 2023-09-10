@@ -18,7 +18,7 @@ class pretamosModel extends Model
     }
 
 
-    public static function allPrestamos()
+    public function allPrestamos()
     {
 
         $prestamos = pretamosModel::all();
@@ -26,13 +26,21 @@ class pretamosModel extends Model
         return $prestamos;
     }
 
-    public static function addPrestamo(Request $request, $id)
+    public function addPrestamo(Request $request, $id)
     {
         $prestamo = new pretamosModel();
         $prestamo->libro_id = $id;
         $prestamo->fecha_prestamo = Carbon::parse($request->input('inputDateFechaPrestamo'));
         $prestamo->fecha_devolucion = Carbon::parse($request->input('inpuDateFechaDevolucion'));
         $prestamo->finalizado = false;
+        $prestamo->save();
+    }
+
+    public function updateEstadoPrestamo($id)
+    {
+        
+        $prestamo = pretamosModel::find($id);
+        $prestamo->finalizado = true;
         $prestamo->save();
     }
 }

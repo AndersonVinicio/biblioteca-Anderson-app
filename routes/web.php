@@ -44,3 +44,4 @@ Route::get('/prestamos',[prestamosController::class, 'displayPrestamos'])->name(
 //MOSTRAMOS LA VISTA DE FORMULARIO PARA REALIZAR UN PRESTAMO
 Route::get('/formulario-add-prestamo/{id}',[prestamosController::class, 'displayFormPrestamo']);
 Route::post('/realizar-prestamo', [prestamosController::class, 'realizarPrestamo'])->name('realizarPrestamo');
+Route::get('/finalizar-prestamo/{id}',[prestamosController::class, 'finalizarPrestamo']);
