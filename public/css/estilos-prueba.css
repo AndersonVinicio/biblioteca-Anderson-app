@@ -44,3 +44,14 @@ form input {
     display: flex;
     flex-direction: column;
 }
+
+.disabled-link {
+    pointer-events: none; /* Evita que se pueda hacer clic en el enlace */
+    background-color: gray;
+    text-decoration: none; /* Elimina cualquier subrayado del enlace */
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+  }
