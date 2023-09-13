@@ -45,3 +45,12 @@ Route::get('/prestamos',[prestamosController::class, 'displayPrestamos'])->name(
 Route::get('/formulario-add-prestamo/{id}',[prestamosController::class, 'displayFormPrestamo']);
 Route::post('/realizar-prestamo', [prestamosController::class, 'realizarPrestamo'])->name('realizarPrestamo');
 Route::get('/finalizar-prestamo/{id}',[prestamosController::class, 'finalizarPrestamo']);
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
