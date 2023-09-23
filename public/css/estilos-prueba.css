@@ -54,4 +54,7 @@ form input {
     color: #fff;
     border: none;
     border-radius: 4px;
-  }
+}
+.hover-link:hover{
+    color: green;
+}

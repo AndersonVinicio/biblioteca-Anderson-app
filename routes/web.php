@@ -17,40 +17,52 @@ use App\Http\Controllers\prestamosController;
 */
 
 Route::get('/', function () {
-    return view('app');
+    // return view('app');
+    return redirect()->route('login');
 });
 
 //libros
 
-//RUTAS PARA MOSTRAR VISTAS
-Route::get('/libros',[librosController::class, 'displayBooks'])->name('displayLibros');
-Route::get('/formulario-add-book',[librosController::class, 'AddBook']);
-Route::get('/edit-libro/{id}',[librosController::class, 'viewEditLibro']);
-Route::get('/detalles-libro/{id}',[librosController::class, 'viewDetallesLibro']);
 
-//RUTA QUE MANEJAN DATOS
-Route::post('/add-libro', [librosController::class, 'addLibro'])->name('addLibro');
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(
+    function () {
+        //RUTAS PARA MOSTRAR VISTAS
+        Route::get('/libros', [librosController::class, 'displayBooks'])->name('displayLibros');
+        Route::get('/formulario-add-book', [librosController::class, 'AddBook']);
+        Route::get('/edit-libro/{id}', [librosController::class, 'viewEditLibro']);
+        Route::get('/detalles-libro/{id}', [librosController::class, 'viewDetallesLibro']);
 
-Route::get('/delete-libro/{id}', [librosController::class, 'deleteBook']);
+        //RUTA QUE MANEJAN DATOS
+        Route::post('/add-libro', [librosController::class, 'addLibro'])->name('addLibro');
 
-Route::post('/update-libro', [librosController::class, 'updateLibro'])->name('updateLibro');
+        Route::get('/delete-libro/{id}', [librosController::class, 'deleteBook']);
 
-Route::post('/buscar-libro', [librosController::class, 'searchBook'])->name('searchBook');
+        Route::post('/update-libro', [librosController::class, 'updateLibro'])->name('updateLibro');
 
-//PRESTAMOS
+        Route::post('/buscar-libro', [librosController::class, 'searchBook'])->name('searchBook');
 
-Route::get('/prestamos',[prestamosController::class, 'displayPrestamos'])->name('displayPrestamos');
+        //PRESTAMOS
 
-//MOSTRAMOS LA VISTA DE FORMULARIO PARA REALIZAR UN PRESTAMO
-Route::get('/formulario-add-prestamo/{id}',[prestamosController::class, 'displayFormPrestamo']);
-Route::post('/realizar-prestamo', [prestamosController::class, 'realizarPrestamo'])->name('realizarPrestamo');
-Route::get('/finalizar-prestamo/{id}',[prestamosController::class, 'finalizarPrestamo']);
+        Route::get('/prestamos', [prestamosController::class, 'displayPrestamos'])->name('displayPrestamos');
+
+        //MOSTRAMOS LA VISTA DE FORMULARIO PARA REALIZAR UN PRESTAMO
+        Route::get('/formulario-add-prestamo/{id}', [prestamosController::class, 'displayFormPrestamo']);
+        Route::post('/realizar-prestamo', [prestamosController::class, 'realizarPrestamo'])->name('realizarPrestamo');
+        Route::get('/finalizar-prestamo/{id}', [prestamosController::class, 'finalizarPrestamo']);
+    }
+);
+
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return redirect()->route('displayLibros');
     })->name('dashboard');
 });

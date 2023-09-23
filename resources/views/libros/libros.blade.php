@@ -13,7 +13,7 @@
     <x-slot name="header">
         <nav>
             <ul>
-                <li><a href="/formulario-add-book">AÑADIR LIBRO</a></li>
+                <li ><a href="/formulario-add-book" class="hover-link">AÑADIR LIBRO</a></li>
             </ul>
         </nav>
     </x-slot>
