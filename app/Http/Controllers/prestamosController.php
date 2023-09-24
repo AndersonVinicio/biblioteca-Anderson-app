@@ -25,7 +25,7 @@ class prestamosController extends Controller
 
     public function displayPrestamos()
     {
-        $prestamos = $this->prestamosModel->allPrestamos();
+        $prestamos = $this->prestamosModel->prestamosUser();
         $librosPrestados = [];
         foreach ($prestamos as $prestamo) {
             $libroRelacionado = $prestamo->libro; 

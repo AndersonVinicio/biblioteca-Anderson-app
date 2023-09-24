@@ -17,12 +17,22 @@ class pretamosModel extends Model
         return $this->belongsTo(librosModel::class, 'libro_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
+
 
     public function allPrestamos()
     {
 
         $prestamos = pretamosModel::all();
-        
+        return $prestamos;
+    }
+
+    public function prestamosUser()
+    {
+        $prestamos = pretamosModel::where('user_id','=',auth()->user()->id)->get();
         return $prestamos;
     }
 
@@ -30,6 +40,7 @@ class pretamosModel extends Model
     {
         $prestamo = new pretamosModel();
         $prestamo->libro_id = $id;
+        $prestamo->user_id = auth()->user()->id;
         $prestamo->fecha_prestamo = Carbon::parse($request->input('inputDateFechaPrestamo'));
         $prestamo->fecha_devolucion = Carbon::parse($request->input('inpuDateFechaDevolucion'));
         $prestamo->finalizado = false;
