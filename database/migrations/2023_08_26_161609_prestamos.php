@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('libro_id');
+            $table->unsignedBigInteger('user_id');
             $table->date('fecha_prestamo');
             $table->date('fecha_devolucion');
             $table->boolean('finalizado');
             $table->foreign('libro_id')->references('id')->on('libros');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
